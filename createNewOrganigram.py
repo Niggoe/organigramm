@@ -3,9 +3,11 @@ import networkx as nx
 import plotly.graph_objects as go
 import plotly.io as pio
 from flask import Flask, render_template_string
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # HTML template for the webpage
 HTML_TEMPLATE = '''
@@ -13,6 +15,7 @@ HTML_TEMPLATE = '''
 <html>
 <head>
     <title>Organigramm</title>
+    <meta charset="utf-8">
     <style>
         body {
             margin: 0;
@@ -152,7 +155,7 @@ if __name__ == '__main__':
         print("Error: organigramm.csv not found!")
         exit(1)
     
-    # Run the Flask app
-    app.run(host='0.0.0.0', port=8050, debug=True)
+    # Run the Flask app on all interfaces
+    app.run(host='0.0.0.0', port=8050, debug=False)
 
 

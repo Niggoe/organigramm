@@ -16,5 +16,9 @@ COPY . .
 # Make port 8050 available to the world outside this container
 EXPOSE 8050
 
+# Set environment variables
+ENV FLASK_APP=createNewOrganigram.py
+ENV FLASK_ENV=production
+
 # Run the application
 CMD ["python", "createNewOrganigram.py"] 
