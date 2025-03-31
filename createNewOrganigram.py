@@ -6,6 +6,16 @@ from flask import Flask, render_template_string
 from flask_cors import CORS
 import os
 
+
+mapping_Direktor_Diretion = {
+    "Marc Siekmann": "Kommunikation",
+    "Dominik Durben": "Vertrieb & Marketing",
+    "Sebastian Buntkirchen": "Fankultur & Nachhaltigkeit",
+    "Matthias Echtermeyer": "Finanzen & Digital",
+    "Marc Hobrack": "Personal & Recht",
+}
+
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
@@ -112,7 +122,11 @@ def create_organigram():
     for edge in G.edges():
         supervisor, employee = edge
         ids.append(employee)
-        labels.append(employee)
+        
+        if employee in mapping_Direktor_Diretion:
+            labels.append(employee + "<br>" + mapping_Direktor_Diretion[employee])
+        else:
+            labels.append(employee)
         parents.append(supervisor)
     
     # Erstelle das Sunburst-Diagramm
@@ -127,7 +141,7 @@ def create_organigram():
                      "Vorgesetzter: %{parent}<br>" +
                      "<extra></extra>",
         marker=dict(
-            colors=['#1f77b4'] + ['#ff7f0e'] * (len(ids) - 1),
+            colors=['#3399ff'] + ['#1f77b4'] * (len(ids) - 1),
             line=dict(color='white', width=1)
         )
     ))
